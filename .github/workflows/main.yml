@@ -3,7 +3,12 @@ name: Deploy Flutter Web to GitHub Pages
 on:
   push:
     branches:
-      - master  # or 'main' if your default branch is main
+      - master  # or 'main'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build:
@@ -16,7 +21,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.29.1'  # ✅ Supports Dart 3.7.0
+          flutter-version: '3.29.1'  # ✅ Your local version
 
       - name: Enable web support
         run: flutter config --enable-web
@@ -25,7 +30,7 @@ jobs:
         run: flutter pub get
 
       - name: Build web app
-        run: flutter build web --release
+        run: flutter build web --release --base-href "/wedding-invitation/"  # ✅ adds correct base path
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
