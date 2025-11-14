@@ -3,7 +3,7 @@ name: Deploy Flutter Web to GitHub Pages
 on:
   push:
     branches:
-      - master   # or 'main'
+      - master
 
 permissions:
   contents: write
@@ -28,11 +28,11 @@ jobs:
         run: flutter pub get
 
       - name: Build Flutter Web
-        run: flutter build web --release    # ✅ No base-href for custom domain
+        run: flutter build web --release
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: build/web
-          cname: wedding-invitation.artizote.com   # ✅ Custom domain
+          cname: wedding-invitation.artizote.com
