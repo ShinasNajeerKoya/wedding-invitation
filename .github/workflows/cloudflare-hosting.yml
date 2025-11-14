@@ -32,10 +32,10 @@ jobs:
       - name: Build Flutter Web
         run: flutter build web --release --base-href "/"
 
-      - name: Save build output into safe directory
+      - name: Save build output into temporary directory
         run: |
-          mkdir safe_build
-          cp -r build/web/* safe_build/
+          mkdir -p /tmp/safe_build
+          cp -r build/web/* /tmp/safe_build/
 
       - name: Checkout cloudflare-hosting branch
         run: |
@@ -47,8 +47,8 @@ jobs:
 
       - name: Replace contents with new build
         run: |
-          rm -rf *
-          cp -r ../safe_build/* .
+          rm -rf ./*
+          cp -r /tmp/safe_build/* .
           git add .
           git commit -m "Cloudflare Pages build" || echo "No changes to commit"
 
