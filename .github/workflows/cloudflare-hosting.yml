@@ -3,7 +3,8 @@ name: Build Flutter Web for Cloudflare Pages
 on:
   push:
     branches:
-      - master
+#      - master
+      - test
 
 permissions:
   contents: write

@@ -3,8 +3,8 @@ name: Deploy Flutter Web to GitHub Pages
 on:
   push:
     branches:
-#      - master  # or 'main'
-      - test  # or 'main'
+      - master  # or 'main'
+#      - test  # or 'main'
 
 permissions:
   contents: write
