@@ -27,8 +27,8 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Build Flutter Web
-        run: flutter build web --release
+      - name: Build Flutter Web (HTML renderer, optimized)
+        run: flutter build web --release --web-renderer html --tree-shake-icons --dart2js-minify
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
