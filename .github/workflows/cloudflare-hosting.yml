@@ -1,9 +1,9 @@
-name: Prepare Flutter Web Build for Cloudflare Pages
+name: Build Flutter Web for Cloudflare Pages
 
 on:
   push:
     branches:
-      - master  # Trigger on master pushes
+      - master
 
 permissions:
   contents: write
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository (master branch with source code)
+      - name: Checkout master
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -29,10 +29,15 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
-      - name: Build Web for Cloudflare Pages
+      - name: Build Flutter Web
         run: flutter build web --release --base-href "/"
 
-      - name: Switch to or Create cloudflare-hosting Branch
+      - name: Save build output into safe directory
+        run: |
+          mkdir safe_build
+          cp -r build/web/* safe_build/
+
+      - name: Checkout cloudflare-hosting branch
         run: |
           if git show-ref --verify --quiet refs/heads/cloudflare-hosting; then
             git checkout cloudflare-hosting
@@ -40,12 +45,13 @@ jobs:
             git checkout -b cloudflare-hosting
           fi
 
-      - name: Replace Branch Contents with Build Output
+      - name: Replace contents with new build
         run: |
           rm -rf *
-          cp -r ../build/web/* .    # ← FIX: use ../ because build folder is on previous branch checkout
+          cp -r ../safe_build/* .
           git add .
-          git commit -m "Updated Cloudflare build (not pushed automatically)" || echo "No changes to commit"
+          git commit -m "Cloudflare Pages build" || echo "No changes to commit"
 
-      - name: Show Branch Status
-        run: git status
+      - name: Push cloudflare-hosting branch
+        run: |
+          git push origin cloudflare-hosting --force
