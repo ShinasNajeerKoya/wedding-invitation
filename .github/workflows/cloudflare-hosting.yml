@@ -1,0 +1,48 @@
+name: Build Flutter Web for Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - master   # 👈 Trigger when pushing to master
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.1'
+
+      - name: Enable Web
+        run: flutter config --enable-web
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Build Web for Cloudflare Pages
+        run: flutter build web --release --base-href "/"
+
+      - name: Prepare Build Branch Files
+        run: |
+          mkdir output
+          cp -r build/web/* output/
+
+      - name: Push Build to cloudflare-hosting branch
+        run: |
+          cd output
+          git init
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .
+          git commit -m "Cloudflare Pages build output"
+          git branch -M cloudflare-hosting
+          git remote add origin https://github.com/${GITHUB_REPOSITORY}.git
+          git push -f origin cloudflare-hosting
