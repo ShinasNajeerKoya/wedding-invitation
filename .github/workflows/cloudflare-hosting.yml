@@ -13,18 +13,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repository (master branch with source code)
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # Required to create/switch branches
-
-      - name: Checkout or Create cloudflare-hosting Branch
-        run: |
-          if git show-ref --verify --quiet refs/heads/cloudflare-hosting; then
-            git checkout cloudflare-hosting
-          else
-            git checkout -b cloudflare-hosting
-          fi
+          fetch-depth: 0
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -40,10 +32,18 @@ jobs:
       - name: Build Web for Cloudflare Pages
         run: flutter build web --release --base-href "/"
 
+      - name: Switch to or Create cloudflare-hosting Branch
+        run: |
+          if git show-ref --verify --quiet refs/heads/cloudflare-hosting; then
+            git checkout cloudflare-hosting
+          else
+            git checkout -b cloudflare-hosting
+          fi
+
       - name: Replace Branch Contents with Build Output
         run: |
           rm -rf *
-          cp -r build/web/* .
+          cp -r ../build/web/* .    # ← FIX: use ../ because build folder is on previous branch checkout
           git add .
           git commit -m "Updated Cloudflare build (not pushed automatically)" || echo "No changes to commit"
 
