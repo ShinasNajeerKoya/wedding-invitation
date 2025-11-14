@@ -3,12 +3,10 @@ name: Deploy Flutter Web to GitHub Pages
 on:
   push:
     branches:
-      - master  # or 'main'
+      - master   # or 'main'
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
   build:
@@ -21,20 +19,20 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.29.1'  # your version
+          flutter-version: '3.29.1'
 
       - name: Enable web support
         run: flutter config --enable-web
 
-      - name: Get dependencies
+      - name: Install dependencies
         run: flutter pub get
 
-      - name: Build web app
-        run: flutter build web --release --base-href "/wedding-invitation/"  # required for subfolder deploy
+      - name: Build Flutter Web
+        run: flutter build web --release    # ✅ No base-href for custom domain
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: build/web
-          cname: wedding-invitation.artizote.com   # ✅ Your custom domain
+          cname: wedding-invitation.artizote.com   # ✅ Custom domain
