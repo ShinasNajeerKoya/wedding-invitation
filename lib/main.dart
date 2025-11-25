@@ -120,6 +120,7 @@ class InvitationPage extends StatelessWidget {
                     title: 'Marriage Ceremony',
                     locationName: 'Vinayaka Mangalya Mandir, \nKonandur, Thirthahalli',
                     time: '11:30 AM',
+                    date: ' 28 Dec 2025 (Sunday)',
                     buttonLabel: 'Marriage Hall Location',
                     onPressed: () => _openUrl('https://maps.app.goo.gl/pUgpnUgtLaNsjS32A'),
                     textColor: textColor,
@@ -133,6 +134,7 @@ class InvitationPage extends StatelessWidget {
                     title: 'Walima (Reception)',
                     locationName: 'Koya Manzil, Brahmavara',
                     time: '12:30 PM',
+                    date: ' 29 Dec 2025 (Monday)',
                     buttonLabel: 'Reception Venue Location',
                     onPressed: () => _openUrl('https://maps.app.goo.gl/6gTT7FZVTyDL1yon7'),
                     textColor: textColor,
@@ -168,6 +170,7 @@ class EventCard extends StatelessWidget {
   final String title;
   final String locationName;
   final String time;
+  final String date;
   final String buttonLabel;
   final VoidCallback onPressed;
   final Color textColor;
@@ -179,6 +182,7 @@ class EventCard extends StatelessWidget {
     required this.title,
     required this.locationName,
     required this.time,
+    required this.date,
     required this.buttonLabel,
     required this.onPressed,
     required this.textColor,
@@ -211,13 +215,15 @@ class EventCard extends StatelessWidget {
                 title,
                 style: TextStyle(fontSize: isMobile ? 22 : 26, fontWeight: FontWeight.bold, color: textColor),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
               Text(
                 locationName,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: isMobile ? 10 : 14, fontWeight: FontWeight.normal, color: textColor),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 16),
+              Text('Date:$date', style: TextStyle(fontSize: isMobile ? 16 : 18, color: textColor.withOpacity(0.8))),
+              const SizedBox(height: 12),
               Text('Time: $time', style: TextStyle(fontSize: isMobile ? 16 : 18, color: textColor.withOpacity(0.8))),
               const SizedBox(height: 20),
               Container(
