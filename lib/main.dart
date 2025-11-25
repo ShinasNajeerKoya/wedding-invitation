@@ -233,8 +233,9 @@ class EventCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(CupertinoIcons.map_pin, color: Colors.white),
-                    const SizedBox(width: 8),
+                    const Icon(Icons.location_on, color: Colors.white, size: 18),
+                    // SizedBox(height: 16, width: 16, child: Image.asset('assets/images/map.png')),
+                    const SizedBox(width: 4),
                     Text(
                       buttonLabel,
                       style: TextStyle(fontSize: isMobile ? 16 : 18, fontWeight: FontWeight.w500, color: Colors.white),
