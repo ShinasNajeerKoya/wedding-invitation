@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -237,7 +236,6 @@ class EventCard extends StatelessWidget {
                     // SizedBox(height: 16, width: 16, child: Image.asset('assets/images/map.png')),
                     // SizedBox(height: 16, width: 16, child: Image.asset('assets/images/map.png')),
                     const SizedBox(width: 4),
-
                     Text(
                       buttonLabel,
                       style: TextStyle(fontSize: isMobile ? 16 : 18, fontWeight: FontWeight.w500, color: Colors.white),
