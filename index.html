@@ -1,27 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <base href="/">
-
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="Wedding Invitation - Shinas & Nazreena">
 
+  <!-- Make app mobile-friendly -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="venue_locations">
+  <meta name="apple-mobile-web-app-title" content="Walima Invitation">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
-
   <link rel="icon" type="image/png" href="favicon.png">
 
-
-  <title>venue_locations</title>
+  <title>Walima Invitation</title>
   <link rel="manifest" href="manifest.json">
 
-  <!-- ⭐ Preload the big JS file for faster first-load -->
+  <!-- Preload main JS for faster load -->
   <link rel="preload" href="main.dart.js" as="script">
+
+  <!-- Force Flutter Web HTML renderer -->
+  <script>
+    window.flutterWebRenderer = "html"; // use HTML renderer (faster startup)
+  </script>
+
+  <!-- Simple loading screen -->
+  <style>
+    #loader {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FCF9F5;
+      z-index: 9999;
+      font-family: sans-serif;
+      color: #6D4922;
+      font-size: 18px;
+    }
+  </style>
 </head>
 <body>
+<div id="loader">
+  Loading invitation...
+</div>
+
 <script src="flutter_bootstrap.js" async></script>
+
+<!-- Remove loader after first Flutter frame -->
+<script>
+  window.addEventListener('flutter-first-frame', function () {
+    const loader = document.getElementById('loader');
+    if(loader) loader.remove();
+  });
+</script>
 </body>
 </html>
