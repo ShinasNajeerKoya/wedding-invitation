@@ -235,7 +235,9 @@ class EventCard extends StatelessWidget {
                   children: [
                     const Icon(Icons.location_on, color: Colors.white, size: 18),
                     // SizedBox(height: 16, width: 16, child: Image.asset('assets/images/map.png')),
+                    // SizedBox(height: 16, width: 16, child: Image.asset('assets/images/map.png')),
                     const SizedBox(width: 4),
+
                     Text(
                       buttonLabel,
                       style: TextStyle(fontSize: isMobile ? 16 : 18, fontWeight: FontWeight.w500, color: Colors.white),
